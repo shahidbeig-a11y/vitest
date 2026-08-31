@@ -617,6 +617,10 @@ async function runTest(test: Test, runner: VitestRunner): Promise<void> {
 
   const repeats = test.repeats ?? 0
   for (let repeatCount = 0; repeatCount <= repeats; repeatCount++) {
+    if (repeatCount > 0) {
+      test.result!.state = 'run'
+      test.result!.errors = undefined
+    }
     const retry = getRetryCount(test.retry)
     for (let retryCount = 0; retryCount <= retry; retryCount++) {
       let beforeEachCleanups: unknown[] = []
